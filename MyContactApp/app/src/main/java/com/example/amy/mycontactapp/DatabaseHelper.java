@@ -15,14 +15,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Contact.db"; //constant
     public static final String TABLE_NAME = "contact_table";
-    //public static final String COL_1 = "ID";
-    public static final String COL_1 = "NAME";
-    public static final String COL_2 = "NUMBER: ";
-    public static final String COL_3 = "AGE: ";
+    public static final String COL_1 = "ID";
+    public static final String COL_2 = "NAME";
+    public static final String COL_3 = "NUMBER: ";
+    public static final String COL_4 = "AGE: ";
+    public static int id = 1;
 
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2);
     }
 
     @Override
@@ -38,14 +39,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean insertData(String name, String number, String age){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1, name);
-        //contentValues.put(COL_2, number);
-        //contentValues.put(COL_3, age);
+        //ContentValues contentValues = new ContentValues();
+        //contentValues.put(COL_1, id);
+        ContentValues contentValues2 = new ContentValues();
+        contentValues2.put(COL_2, name);
+        //ContentValues contentValues3 = new ContentValues();
+        //contentValues3.put(COL_3, number);
+        //ContentValues contentValues4 = new ContentValues();
+        //contentValues4.put(COL_4, age);
 
-        long result = db.insert(TABLE_NAME, null, contentValues);
-        if(result == -1) return false;
-        else return true;
+        //long result = db.insert(TABLE_NAME, null, contentValues);
+        long result2 = db.insert(TABLE_NAME, null, contentValues2);
+        //long result3 = db.insert(TABLE_NAME, null, contentValues3);
+        //long result4 = db.insert(TABLE_NAME, null, contentValues4);
+        if(result2 == -1 ) return false;
+        else
+        {
+            id++;
+            return true;
+        }
     }
 
     public Cursor getAllData() {

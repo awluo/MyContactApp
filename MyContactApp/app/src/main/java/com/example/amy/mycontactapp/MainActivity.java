@@ -2,6 +2,7 @@ package com.example.amy.mycontactapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void showMessage(String title, String message) {
         //AlertDialog.Builder
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        AlertDialog d = builder.create();
+        d.show();
     }
 }
