@@ -17,18 +17,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "contact_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "NAME";
-    public static final String COL_3 = "NUMBER: ";
-    public static final String COL_4 = "AGE: ";
-    public static int id = 1;
-
+    public static final String COL_3 = "NUMBER";
+    public static final String COL_4 = "AGE";
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 2);
+        super(context, DATABASE_NAME, null, 4);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT)");//space after command
+        db.execSQL("CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, NUMBER TEXT, AGE TEXT)");//space after command
     }
 
     @Override
@@ -39,23 +37,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean insertData(String name, String number, String age){
         SQLiteDatabase db = this.getWritableDatabase();
-        //ContentValues contentValues = new ContentValues();
+        ContentValues contentValues = new ContentValues();
         //contentValues.put(COL_1, id);
-        ContentValues contentValues2 = new ContentValues();
-        contentValues2.put(COL_2, name);
-        //ContentValues contentValues3 = new ContentValues();
-        //contentValues3.put(COL_3, number);
-        //ContentValues contentValues4 = new ContentValues();
-        //contentValues4.put(COL_4, age);
+        contentValues.put(COL_2, name);
+        contentValues.put(COL_3, number);
+        contentValues.put(COL_4, age);
 
-        //long result = db.insert(TABLE_NAME, null, contentValues);
-        long result2 = db.insert(TABLE_NAME, null, contentValues2);
-        //long result3 = db.insert(TABLE_NAME, null, contentValues3);
-        //long result4 = db.insert(TABLE_NAME, null, contentValues4);
-        if(result2 == -1 ) return false;
+        long result = db.insert(TABLE_NAME, null, contentValues);
+        if(result == -1 ) return false;
         else
         {
-            id++;
             return true;
         }
     }
