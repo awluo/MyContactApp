@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editName;
     EditText editNumber;
     EditText editAge;
+    EditText editSearch;
     Button btnAddData;
     Button showData;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         editName = (EditText) findViewById(R.id.editText_Name);
         editNumber = (EditText) findViewById(R.id.editText_Number);
         editAge = (EditText) findViewById(R.id.editText_Age);
+        editSearch = (EditText) findViewById(R.id.editText_Search);
     }
 
     public void addData(View v){
@@ -89,5 +91,31 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage(message);
         AlertDialog d = builder.create();
         d.show();
+    }
+
+    public void searchData(View v)
+    {
+        Cursor res = myDb.getAllData();
+        if(res.getCount() == 0) {
+            showMessage("Error", "No data found in database");
+            //output message using Log.d and Toast
+            return;
+        }
+        StringBuffer buffer = new StringBuffer();
+        while(res.moveToNext())
+        {
+            if(res.getString(1).equals(editSearch.getText().toString()))
+            {
+                for(int i=0; i<res.getColumnCount();i++)
+                {
+                    buffer.append(res.getColumnName(i) + ": " + res.getString(i) + "\n");
+                }
+                showMessage("Data", buffer.toString());
+                return;
+            }
+        }
+        buffer.append("Contact not found.");
+        showMessage("Data", buffer.toString());
+
     }
 }
