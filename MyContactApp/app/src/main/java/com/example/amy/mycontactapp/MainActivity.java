@@ -36,11 +36,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addData(View v){
-        boolean isInserted = myDb.insertData(editName.getText().toString(),
-                editNumber.getText().toString(),
-                editAge.getText().toString());
+        boolean isInserted = false;
+        if(!editName.getText().toString().equals("") &&
+                !editNumber.getText().toString().equals("")&&
+                !editAge.getText().toString().equals(""))
+        {
+             isInserted = myDb.insertData(editName.getText().toString(),
+                    editNumber.getText().toString(),
+                    editAge.getText().toString());
+        }
 
-        if(isInserted == true){
+        if(isInserted == true ){
             Log.d("MyContact", "Success inserting data");
             //Insert Toast message here...
             Context context = getApplicationContext();
@@ -104,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         StringBuffer buffer = new StringBuffer();
         while(res.moveToNext())
         {
-            if(res.getString(1).equals(editSearch.getText().toString()))
+            if(res.getString(1).toUpperCase().equals(editSearch.getText().toString().toUpperCase()))
             {
                 for(int i=0; i<res.getColumnCount();i++)
                 {
